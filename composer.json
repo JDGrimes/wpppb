@@ -1,0 +1,20 @@
+{
+    "name": "jdgrimes/wp-plugin-phpunit-bootstrap",
+    "description": "Bootstrap for integration testing WordPress plugins with PHPUnit",
+    "homepage": "https://github.com/JDGrimes/wp-plugin-phpunit-bootstrap",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "J.D. Grimes",
+            "email": "jdg@codesymphony.co",
+            "homepage": "http://codesymphony.co",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "autoload": {
+        "classmap": ["src/classes/"]
+    }
+}
