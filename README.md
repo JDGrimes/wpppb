@@ -16,6 +16,24 @@ Include the composer autoload file in your PHPUnit PHP bootstrap file:
 require_once( dirname( __FILE__ ) . '/../../vendor/autoload.php' );
 ```
 
+Then, before you run your tests from the command line, you'll need to set the path
+to the WordPress test suite:
+
+```bash
+export WP_TESTS_DIR=/full/path/to/wordpress/tests/phpunit/
+```
+
+You'll probably want to add that to your `.bash_profile`.
+
+Finally, note that the plugins that you want to load during your tests will need
+to be present in the `src/wp-content/plugins` directory of the test site. You can
+copy them there, or just create symlinks to them, which is the easiest approach
+when they are under development in a different directory.
+
+```bash
+ln -s /path/to/plugin/src /path/to/wordpress/src/wp-content/plugins/plugin
+```
+
 ## Usage
 
 Next in your PHPUnit bootstrap file, construct the loader and tell it what plugins
@@ -27,7 +45,7 @@ $loader->add_plugin( 'my-plugin/my-plugin.php' );
 ```
 
 That's it. Now the loader will see to it that your plugin is activated and loaded
-during the tests.
+before the test suite is run.
 
 ## Purpose
 
