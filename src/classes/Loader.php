@@ -43,7 +43,9 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->hook_up_installer();
+		if ( $this->should_install_plugins() ) {
+			$this->hook_up_installer();
+		}
 	}
 
 	/**
@@ -173,6 +175,28 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 		}
 
 		return $config_file_path;
+	}
+
+	/**
+	 * Check whether the plugins should be installed.
+	 *
+	 * If uninstallation tests are being performed, we don't install the plugins
+	 * ourselves as the uninstall tester library will take care of that.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return bool Whether we should install the plugins.
+	 */
+	protected function should_install_plugins() {
+
+		if (
+			function_exists( 'running_wp_plugin_uninstall_tests' )
+			&& running_wp_plugin_uninstall_tests()
+		) {
+			return false;
+		}
+
+		return true;
 	}
 }
 
