@@ -72,9 +72,12 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 * @since 0.1.0
 	 *
 	 * @param string $file The full path to the file.
+	 * @param array  $data Data to make available to this file when it is included.
+	 *                     The file can access this information through the $data
+	 *                     variable.
 	 */
-	public function add_php_file( $file ) {
-		$this->files[] = $file;
+	public function add_php_file( $file, $data = array() ) {
+		$this->files[ $file ] = $data;
 	}
 
 	/**

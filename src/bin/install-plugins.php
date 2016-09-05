@@ -32,7 +32,7 @@ foreach ( $plugins_info as $plugin => $info ) {
 }
 
 // Load extra files.
-foreach ( $custom_files as $file ) {
+foreach ( $custom_files as $file => $data ) {
 	require $file;
 }
 
