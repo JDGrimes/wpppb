@@ -26,13 +26,18 @@ require dirname( __FILE__ ) . '/bootstrap.php';
  */
 require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
+// Load files to include before the plugins are installed.
+foreach ( $custom_files['before'] as $file => $data ) {
+	require $file;
+}
+
 // Activate the plugins.
 foreach ( $plugins_info as $plugin => $info ) {
 	activate_plugin( $plugin, '', $info['network_wide'] );
 }
 
-// Load extra files.
-foreach ( $custom_files as $file => $data ) {
+// Load files to include after the plugins are installed.
+foreach ( $custom_files['after'] as $file => $data ) {
 	require $file;
 }
 

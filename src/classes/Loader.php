@@ -31,9 +31,12 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @var string[]
+	 * @var string[][]
 	 */
-	protected $files = array();
+	protected $files = array(
+		'before' => array(),
+		'after'  => array(),
+	);
 
 	//
 	// Public Methods.
@@ -72,12 +75,15 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 * @since 0.1.0
 	 *
 	 * @param string $file The full path to the file.
+	 * @param string $when When this file should be included. Current possibilities
+	 *                     are 'before' and 'after', for before and after plugins
+	 *                     are installed, respectively. The default is 'after'.
 	 * @param array  $data Data to make available to this file when it is included.
 	 *                     The file can access this information through the $data
 	 *                     variable.
 	 */
-	public function add_php_file( $file, $data = array() ) {
-		$this->files[ $file ] = $data;
+	public function add_php_file( $file, $when = 'after', $data = array() ) {
+		$this->files[ $when ][ $file ] = $data;
 	}
 
 	/**
