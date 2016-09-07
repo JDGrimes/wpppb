@@ -19,6 +19,19 @@ $custom_files     = json_decode( $argv[4], true );
  */
 require dirname( __FILE__ ) . '/bootstrap.php';
 
+// Clean out the database.
+global $wpdb;
+
+// But we'll leave the core tables untouched.
+$core_tables = array_fill_keys( $wpdb->tables(), 1 );
+
+// Just remove any lingering plugin tables.
+foreach ( $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->base_prefix . "%'" ) as $table ) {
+	if ( ! isset( $core_tables[ $table ] ) ) {
+		$wpdb->query( "DROP TABLE {$table}" );
+	}
+}
+
 /**
  * The plugin API from WordPress.
  *
