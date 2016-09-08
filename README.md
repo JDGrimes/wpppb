@@ -49,6 +49,8 @@ $loader->add_plugin( 'my-plugin/my-plugin.php' );
 That's it. Now the loader will see to it that your plugin is activated and loaded
 before the test suite is run.
 
+You can also do other cool things like [test your plugin's unisntall routine](https://github.com/JDGrimes/wp-plugin-phpunit-bootstrap/wiki/Testing-Uninstallation).
+
 ## Purpose
 
 The purpose of this project is to provide a bootstrap for plugin developers who want
