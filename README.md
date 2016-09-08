@@ -36,11 +36,11 @@ ln -s /path/to/plugin/src /path/to/wordpress/src/wp-content/plugins/plugin
 
 ## Usage
 
-Next in your PHPUnit bootstrap file, construct the loader and tell it what plugins
+Next in your PHPUnit bootstrap file, grab the loader and tell it what plugins
 should be active during the tests:
 
 ```php
-$loader = new WP_Plugin_PHPUnit_Bootstrap_Loader;
+$loader = WPPPB_Loader::instance();
 $loader->add_plugin( 'my-plugin/my-plugin.php' );
 ```
 

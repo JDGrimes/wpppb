@@ -6,7 +6,7 @@
  * The including file needs to properly set the $config_file_path and $is_multisite
  * variables.
  *
- * @package WP_Plugin_PHPUnit_Bootstrap
+ * @package WPPPB
  * @since 0.1.0
  */
 

@@ -3,7 +3,7 @@
 /**
  * Plugin loader class.
  *
- * @package WP_Plugin_PHPUnit_Bootstrap
+ * @package WPPPB
  * @since 0.1.0
  */
 
@@ -12,7 +12,7 @@
  *
  * @since 0.1.0
  */
-class WP_Plugin_PHPUnit_Bootstrap_Loader {
+class WPPPB_Loader {
 
 	/**
 	 * Keys are the plugins, the values are info for each plugin.
@@ -38,6 +38,35 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 		'after'  => array(),
 	);
 
+	/**
+	 * The single instance of the loader used throughout a test run.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @var WPPPB_Loader
+	 */
+	protected static $instance;
+
+	//
+	// Public Static Methods.
+	//
+
+	/**
+	 * Get the main instance of this class.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return WPPPB_Loader
+	 */
+	public static function instance() {
+
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new WPPPB_Loader();
+		}
+
+		return self::$instance;
+	}
+
 	//
 	// Public Methods.
 	//
@@ -45,7 +74,7 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	/**
 	 * @since 0.1.0
 	 */
-	public function __construct() {
+	protected function __construct() {
 		if ( $this->should_install_plugins() ) {
 			$this->hook_up_installer();
 		}
@@ -105,32 +134,15 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 			. ' ' . escapeshellarg( $this->locate_wp_tests_config() )
 			. ' ' . (int) is_multisite()
 			. ' ' . escapeshellarg( json_encode( $this->files ) )
+			, $exit_code
 		);
 
-		wp_cache_flush();
-	}
-
-	//
-	// Protected Methods.
-	//
-
-	/**
-	 * Hooks up the function that installs the plugins.
-	 *
-	 * @since 0.1.0
-	 */
-	protected function hook_up_installer() {
-
-		if ( ! function_exists( 'tests_add_filter' ) ) {
-			/**
-			 * The WordPress tests functions.
-			 *
-			 * @since 0.1.0
-			 */
-			require_once( $this->get_wp_tests_dir() . '/includes/functions.php' );
+		if ( 0 !== $exit_code ) {
+			echo( 'Remote plugin installation failed with exit code ' . $exit_code );
+			exit( 1 );
 		}
 
-		tests_add_filter( 'muplugins_loaded', array( $this, 'install_plugins' ) );
+		wp_cache_flush();
 	}
 
 	/**
@@ -140,7 +152,7 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 *
 	 * @return string The full path to WordPress's PHPUnit tests.
 	 */
-	protected function get_wp_tests_dir() {
+	public function get_wp_tests_dir() {
 
 		$wp_tests_dir = getenv( 'WP_TESTS_DIR' );
 
@@ -161,7 +173,7 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 *
 	 * @return string The path to the file, if found.
 	 */
-	protected function locate_wp_tests_config() {
+	public function locate_wp_tests_config() {
 
 		$config_file_path = $this->get_wp_tests_dir();
 
@@ -196,16 +208,59 @@ class WP_Plugin_PHPUnit_Bootstrap_Loader {
 	 *
 	 * @return bool Whether we should install the plugins.
 	 */
-	protected function should_install_plugins() {
+	public function should_install_plugins() {
 
-		if (
-			function_exists( 'running_wp_plugin_uninstall_tests' )
-			&& running_wp_plugin_uninstall_tests()
-		) {
+		if ( $this->running_uninstall_tests() ) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Check if the uninstall tests are being run.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return bool Whether the uninstall tests are being run.
+	 */
+	public function running_uninstall_tests() {
+
+		static $uninstall_tests;
+
+		if ( ! isset( $uninstall_tests ) ) {
+
+			global $argv;
+
+			$option_parser = new WPPPB_Util_GetOpt( $argv );
+
+			$uninstall_tests = $option_parser->running_uninstall_group();
+		}
+
+		return $uninstall_tests;
+	}
+
+	//
+	// Protected Methods.
+	//
+
+	/**
+	 * Hooks up the function that installs the plugins.
+	 *
+	 * @since 0.1.0
+	 */
+	protected function hook_up_installer() {
+
+		if ( ! function_exists( 'tests_add_filter' ) ) {
+			/**
+			 * The WordPress tests functions.
+			 *
+			 * @since 0.1.0
+			 */
+			require_once( $this->get_wp_tests_dir() . '/includes/functions.php' );
+		}
+
+		tests_add_filter( 'muplugins_loaded', array( $this, 'install_plugins' ) );
 	}
 }
 

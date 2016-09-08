@@ -3,7 +3,7 @@
 /**
  * Install a plugin remotely.
  *
- * @package WP_Plugin_PHPUnit_Bootstrap
+ * @package WPPPB
  * @since 0.1.0
  */
 
