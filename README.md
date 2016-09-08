@@ -16,6 +16,8 @@ Include the composer autoload file in your PHPUnit PHP bootstrap file:
 require_once( dirname( __FILE__ ) . '/../../vendor/autoload.php' );
 ```
 
+(See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wp-plugin-phpunit-bootstrap/wiki/PHP-5.2).)
+
 Then, before you run your tests from the command line, you'll need to set the path
 to the WordPress test suite:
 
