@@ -21,7 +21,16 @@ class WPPPB_Util_GetOpt extends PHPUnit_Util_Getopt {
 	 *
 	 * @type string[] $longOptions
 	 */
-	protected $longOptions = array( 'group=' );
+	protected $longOptions = array( 'configuration=' );
+
+	/**
+	 * The short options we are interested in.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @type string[] $shortOptions
+	 */
+	protected $shortOptions = 'c:';
 
 	/**
 	 * Whether the uninstall group is being run.
@@ -49,8 +58,22 @@ class WPPPB_Util_GetOpt extends PHPUnit_Util_Getopt {
 
 			try {
 
-				if ( strlen( $arg ) > 1 && $arg[0] === '-' && $arg[1] === '-' ) {
-					PHPUnit_Util_Getopt::parseLongOption( substr( $arg, 2 ), $this->longOptions, $options, $argv );
+				if ( strlen( $arg ) > 1 && $arg[0] === '-' ) {
+					if ( $arg[1] === '-' ) {
+						PHPUnit_Util_Getopt::parseLongOption(
+							substr( $arg, 2 ),
+							$this->longOptions,
+							$options,
+							$argv
+						);
+					} else {
+						PHPUnit_Util_Getopt::parseShortOption(
+							substr( $arg, 1 ),
+							$this->shortOptions,
+							$options,
+							$argv
+						);
+					}
 				}
 
 			} catch ( PHPUnit_Framework_Exception $e ) {
@@ -64,16 +87,15 @@ class WPPPB_Util_GetOpt extends PHPUnit_Util_Getopt {
 
 			switch ( $option[0] ) {
 
-				case '--group' :
-					$groups = explode( ',', $option[1] );
-
-					$this->uninstall_group = in_array( 'uninstall', $groups );
+				case '--configuration' :
+				case 'c':
+					$this->uninstall_group = strpos( $option[1], 'uninstall' );
 				break 2;
 			}
 		}
 
 		if ( ! $this->uninstall_group ) {
-			echo 'Not running plugin install/uninstall tests... To execute these, use --group uninstall.' . PHP_EOL;
+			echo 'Not running plugin install/uninstall tests... To execute these, use -c phpunit.uninstall.xml.dist.' . PHP_EOL;
 		} else {
 			echo 'Running plugin install/uninstall tests...' . PHP_EOL;
 		}
