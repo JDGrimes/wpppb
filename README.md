@@ -1,4 +1,4 @@
-# WP Plugin PHPUnit Bootstrap
+# WP Plugin PHPUnit Bootstrap [![Build Status](https://travis-ci.org/JDGrimes/wpppb.svg?branch=master)](https://travis-ci.org/JDGrimes/wpppb) [![Latest Stable Version](https://poser.pugx.org/jdgrimes/wpppb/version)](https://packagist.org/packages/jdgrimes/wpppb) [![License](https://poser.pugx.org/jdgrimes/wpppb/license)](https://packagist.org/packages/jdgrimes/wpppb)
 
 Bootstrap for integration testing WordPress plugins with PHPUnit.
 
