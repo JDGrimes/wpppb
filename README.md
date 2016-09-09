@@ -13,7 +13,7 @@ composer require --dev jdgrimes/wpppb
 Include the composer autoload file in your PHPUnit PHP bootstrap file:
 
 ```php
-require_once( dirname( __FILE__ ) . '/../../vendor/autoload.php' );
+require_once( dirname( __FILE__ ) . '/../../../vendor/autoload.php' );
 ```
 
 (See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wpppb/wiki/PHP-5.2).)
