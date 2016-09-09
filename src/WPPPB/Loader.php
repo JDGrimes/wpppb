@@ -94,6 +94,18 @@ class WPPPB_Loader {
 	}
 
 	/**
+	 * Get a list of the plugins to be loaded.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array[] The plugins to be loaded. Keys are plugin basename slugs,
+	 *                 values arrays of data for the plugins.
+	 */
+	public function get_plugins() {
+		return $this->plugins;
+	}
+
+	/**
 	 * Add a PHP file to include after activating the plugins.
 	 *
 	 * You can use this to perform other custom actions after the plugins are

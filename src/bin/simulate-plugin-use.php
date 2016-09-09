@@ -11,7 +11,7 @@ $plugin_file      = $argv[1];
 $simulation_file  = $argv[2];
 $config_file_path = $argv[3];
 $is_multisite     = $argv[4];
-$network_active   = $argv[5];
+$network_wide     = $argv[5];
 
 /**
  * The bootstrap for loading WordPress.
@@ -40,6 +40,6 @@ $GLOBALS['wp_test_factory'] = new WP_UnitTest_Factory;
 require $simulation_file;
 
 // Deactivate the plugin.
-deactivate_plugins( $plugin_file, false, $network_active );
+deactivate_plugins( $plugin_file, false, $network_wide );
 
 // EOF

@@ -36,7 +36,7 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 	 *
 	 * @var bool
 	 */
-	protected $network_active = false;
+	protected $network_wide = false;
 
 	/**
 	 * Full path to a file to simulate plugin usage.
@@ -88,7 +88,16 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 			$this->_blog_id = $factory->blog->create();
 		}
 
-		WPPPB_Loader::instance()->install_plugins();
+		$loader = WPPPB_Loader::instance();
+		$loader->install_plugins();
+
+		if ( ! isset( $this->plugin_file ) ) {
+
+			$plugins = $loader->get_plugins();
+
+			$this->plugin_file = key( $plugins );
+			$this->network_wide = $plugins[ $this->plugin_file ]['network_wide'];
+		}
 
 		parent::setUp();
 	}
@@ -134,7 +143,7 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 			. ' ' . escapeshellarg( $this->simulation_file )
 			. ' ' . escapeshellarg( WPPPB_Loader::instance()->locate_wp_tests_config() )
 			. ' ' . (int) is_multisite()
-			. ' ' . (int) $this->network_active
+			. ' ' . (int) $this->network_wide
 			, $exit_code
 		);
 
