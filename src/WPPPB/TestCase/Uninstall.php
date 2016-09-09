@@ -99,6 +99,16 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 			$this->network_wide = $plugins[ $this->plugin_file ]['network_wide'];
 		}
 
+		if ( ! isset( $this->simulation_file ) ) {
+
+			$default = dirname( __FILE__ )
+				. '/../../../../../../tests/phpunit/includes/usage-simulator.php';
+
+			if ( file_exists( $default ) ) {
+				$this->simulation_file = $default;
+			}
+		}
+
 		parent::setUp();
 	}
 
