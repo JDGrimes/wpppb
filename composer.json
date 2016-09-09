@@ -1,7 +1,7 @@
 {
-    "name": "jdgrimes/wp-plugin-phpunit-bootstrap",
+    "name": "jdgrimes/wpppb",
     "description": "Bootstrap for integration testing WordPress plugins with PHPUnit",
-    "homepage": "https://github.com/JDGrimes/wp-plugin-phpunit-bootstrap",
+    "homepage": "https://github.com/JDGrimes/wpppb",
     "license": "MIT",
     "authors": [
         {

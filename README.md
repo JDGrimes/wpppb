@@ -5,7 +5,7 @@ Bootstrap for integration testing WordPress plugins with PHPUnit.
 ## Installation
 
 ```bash
-composer require --dev jdgrimes/wp-plugin-phpunit-bootstrap
+composer require --dev jdgrimes/wpppb
 ```
 
 ## Set Up
@@ -16,7 +16,7 @@ Include the composer autoload file in your PHPUnit PHP bootstrap file:
 require_once( dirname( __FILE__ ) . '/../../vendor/autoload.php' );
 ```
 
-(See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wp-plugin-phpunit-bootstrap/wiki/PHP-5.2).)
+(See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wpppb/wiki/PHP-5.2).)
 
 Then, before you run your tests from the command line, you'll need to set the path
 to the WordPress test suite:
@@ -49,7 +49,7 @@ $loader->add_plugin( 'my-plugin/my-plugin.php' );
 That's it. Now the loader will see to it that your plugin is activated and loaded
 before the test suite is run.
 
-You can also do other cool things like [test your plugin's unisntall routine](https://github.com/JDGrimes/wp-plugin-phpunit-bootstrap/wiki/Testing-Uninstallation).
+You can also do other cool things like [test your plugin's uninstall routine](https://github.com/JDGrimes/wpppb/wiki/Testing-Uninstallation).
 
 ## Purpose
 
