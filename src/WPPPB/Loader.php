@@ -131,9 +131,7 @@ class WPPPB_Loader {
 	 * Installs the plugins via a separate PHP process.
 	 *
 	 * You do not need to call this directly, it is only public because it is hooked
-	 * to the muplugins_loaded action.
-	 *
-	 * @WordPress\action muplugins_loaded Added by self::hook_up_installer().
+	 * to an action by self::hook_up_installer().
 	 *
 	 * @since 0.1.0
 	 */
@@ -154,7 +152,12 @@ class WPPPB_Loader {
 			exit( 1 );
 		}
 
-		wp_cache_flush();
+		// The caching functions may not be loaded yet.
+		if ( function_exists( 'wp_cache_flush' ) ) {
+			wp_cache_flush();
+		}
+
+		remove_action( 'all', array( $this, 'install_plugins' ) );
 	}
 
 	/**
@@ -272,7 +275,7 @@ class WPPPB_Loader {
 			require_once( $this->get_wp_tests_dir() . '/includes/functions.php' );
 		}
 
-		tests_add_filter( 'muplugins_loaded', array( $this, 'install_plugins' ) );
+		tests_add_filter( 'all', array( $this, 'install_plugins' ) );
 	}
 }
 
