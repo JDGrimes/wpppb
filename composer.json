@@ -14,6 +14,7 @@
     "require": {
         "php": ">=5.2.0"
     },
+    "bin": ["bin/wpppb-init"],
     "autoload": {
         "psr-0": {
             "WPPPB_": "src/"

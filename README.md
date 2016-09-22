@@ -10,45 +10,22 @@ composer require --dev jdgrimes/wpppb
 
 ## Set Up
 
-Include the composer autoload file in your PHPUnit PHP bootstrap file:
-
-```php
-require_once( dirname( __FILE__ ) . '/../../../vendor/autoload.php' );
-```
-
-(See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wpppb/wiki/PHP-5.2).)
-
-Then, before you run your tests from the command line, you'll need to set the path
-to the WordPress test suite:
-
 ```bash
-export WP_TESTS_DIR=/full/path/to/wordpress/tests/phpunit/
+vendor/bin/wpppb-init
 ```
 
-You'll probably want to add that to your `.bash_profile`.
+Answer the prompts, and you are ready to go!
 
-Finally, note that the plugins that you want to load during your tests will need
-to be present in the `src/wp-content/plugins` directory of the test site. You can
-copy them there, or just create symlinks to them, which is the easiest approach
-when they are under development in a different directory.
-
-```bash
-ln -s /path/to/plugin/src /path/to/wordpress/src/wp-content/plugins/plugin
-```
+(Note that the default bootstrap utilizes Composer's PHP autoloader, which requires
+PHP 5.3. See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wpppb/wiki/PHP-5.2).)
 
 ## Usage
 
-Next in your PHPUnit bootstrap file, grab the loader and tell it what plugins
-should be active during the tests:
+You can run your PHPUnit tests just as you normally would:
 
-```php
-$loader = WPPPB_Loader::instance();
-$loader->add_plugin( 'my-plugin/my-plugin.php' );
-$loader->load_wordpress();
+```bash
+phpunit
 ```
-
-That's it. Now the loader will see to it that your plugin is activated and loaded
-before the test suite is run.
 
 You can also do other cool things like [test your plugin's uninstall routine](https://github.com/JDGrimes/wpppb/wiki/Testing-Uninstallation).
 
