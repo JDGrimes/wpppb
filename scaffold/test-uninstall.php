@@ -33,6 +33,11 @@ class My_Plugin_Uninstall_Test extends WPPPB_TestCase_Uninstall {
 		// You must call this to perform uninstallation.
 		$this->uninstall();
 
+		// Check that everything with this plugin's prefix has been uninstalled.
+		$this->assertUninstalledPrefix( 'myplugin' );
+
+		// Or, if we need to, we can also run more granular checks, like this:
+
 		// Check that the table was deleted.
 		$this->assertTableNotExists( $wpdb->prefix . 'myplugin_table' );
 
