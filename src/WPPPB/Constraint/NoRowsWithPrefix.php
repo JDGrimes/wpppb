@@ -22,7 +22,7 @@ class WPPPB_Constraint_NoRowsWithPrefix
 	 *
 	 * @type string $table
 	 */
-	private $table;
+	protected $table;
 
 	/**
 	 * The column to check in.
@@ -31,7 +31,7 @@ class WPPPB_Constraint_NoRowsWithPrefix
 	 *
 	 * @type string $column
 	 */
-	private $column;
+	protected $column;
 
 	/**
 	 * The prefix that should not be present.
@@ -40,7 +40,7 @@ class WPPPB_Constraint_NoRowsWithPrefix
 	 *
 	 * @type string $prefix
 	 */
-	private $prefix;
+	protected $prefix;
 
 	/**
 	 * The rows in the table that have the prefix.
@@ -49,7 +49,7 @@ class WPPPB_Constraint_NoRowsWithPrefix
 	 *
 	 * @type array $prefixed_rows
 	 */
-	private $prefixed_rows = array();
+	protected $prefixed_rows = array();
 
 	/**
 	 * Construct the class.
@@ -66,7 +66,7 @@ class WPPPB_Constraint_NoRowsWithPrefix
 		$this->column = esc_sql( $column );
 		$this->prefix = $prefix;
 
-		// Back-compat for pre PHPUnit 4.0.0. See #14.
+		// Back-compat for PHPUnit <4.0. See JDGrimes/wp-plugin-uninstall-tester#14.
 		if ( is_callable( 'parent::__construct' ) ) {
 			parent::__construct();
 		}
