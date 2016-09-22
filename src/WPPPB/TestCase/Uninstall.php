@@ -199,6 +199,45 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Assert that everything with a prefix has been uninstalled from the database.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param string $prefix The prefix that everything should be uninstalled for.
+	 */
+	public static function assertUninstalledPrefix( $prefix ) {
+
+		global $wpdb;
+
+		self::assertNoTablesWithPrefix( $wpdb->prefix . $prefix );
+		self::assertNoTablesWithPrefix( $wpdb->base_prefix . $prefix );
+		self::assertNoOptionsWithPrefix( $prefix );
+		self::assertNoUserMetaWithPrefix( $prefix );
+		self::assertNoUserOptionsWithPrefix( $prefix );
+		self::assertNoPostMetaWithPrefix( $prefix );
+		self::assertNoCommentMetaWithPrefix( $prefix );
+
+		if ( is_multisite() ) {
+			self::assertNoSiteOptionsWithPrefix( $prefix );
+		}
+	}
+
+	/**
+	 * Asserts that no database tables with a given prefix exist.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param string $prefix  The prefix to check for.
+	 * @param string $message An optional message.
+	 *
+	 * @throws PHPUnit_Framework_AssertionFailedError
+	 */
+	public static function assertNoTablesWithPrefix( $prefix, $message = '' ) {
+
+		self::assertThat( $prefix, self::databaseHasNoTablesWithPrefix( $prefix ), $message );
+	}
+
+	/**
 	 * Asserts that a database table does not exist.
 	 *
 	 * @since 0.1.0
@@ -353,6 +392,20 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 	public static function isInDatabase() {
 
 		return new WPPPB_Constraint_TableExists;
+	}
+
+	/**
+	 * No tables with prefix in DB constraint.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param string $prefix The prefix that no tables should have.
+	 *
+	 * @return WPPPB_Constraint_NoTablesWithPrefix
+	 */
+	public static function databaseHasNoTablesWithPrefix( $prefix ) {
+
+		return new WPPPB_Constraint_NoTablesWithPrefix( $prefix );
 	}
 
 	/**
