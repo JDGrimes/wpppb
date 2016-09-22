@@ -255,6 +255,21 @@ class WPPPB_Loader {
 		return $uninstall_tests;
 	}
 
+	/**
+	 * Loads WordPress and its test environment.
+	 *
+	 * @since 0.2.0
+	 */
+	public function load_wordpress() {
+
+		/**
+		 * Sets up the WordPress test environment.
+		 *
+		 * @since 0.2.0
+		 */
+		require( $this->get_wp_tests_dir() . '/includes/bootstrap.php' );
+	}
+
 	//
 	// Protected Methods.
 	//

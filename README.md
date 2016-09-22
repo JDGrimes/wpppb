@@ -44,6 +44,7 @@ should be active during the tests:
 ```php
 $loader = WPPPB_Loader::instance();
 $loader->add_plugin( 'my-plugin/my-plugin.php' );
+$loader->load_wordpress();
 ```
 
 That's it. Now the loader will see to it that your plugin is activated and loaded
