@@ -25,6 +25,16 @@ global $wpdb;
 // But we'll leave the core tables untouched.
 $core_tables = array_fill_keys( $wpdb->tables(), 1 );
 
+if ( is_multisite() ) {
+	$site_ids = $wpdb->get_col(
+		"SELECT `blog_id` FROM `{$wpdb->blogs}` WHERE `site_id` = {$wpdb->siteid}"
+	);
+
+	foreach ( $site_ids as $site_id ) {
+		$core_tables += array_fill_keys( $wpdb->tables( 'all', true, $site_id ), 1 );
+	}
+}
+
 // Just remove any lingering plugin tables.
 foreach ( $wpdb->get_col( "SHOW TABLES LIKE '" . $wpdb->base_prefix . "%'" ) as $table ) {
 	if ( ! isset( $core_tables[ $table ] ) ) {
