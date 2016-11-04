@@ -262,12 +262,25 @@ class WPPPB_Loader {
 	 */
 	public function load_wordpress() {
 
+		$wp_tests_dir = $this->get_wp_tests_dir();
+
 		/**
 		 * Sets up the WordPress test environment.
 		 *
 		 * @since 0.2.0
 		 */
-		require( $this->get_wp_tests_dir() . '/includes/bootstrap.php' );
+		require( $wp_tests_dir . '/includes/bootstrap.php' );
+
+		// The listener is not loaded by default. It was added in WordPress 4.4.
+		if ( file_exists( $wp_tests_dir . '/includes/speed-trap-listener.php' ) ) {
+
+			/**
+			 * The speed trap listener from WordPress's test suite.
+			 *
+			 * @since 0.2.2
+			 */
+			require_once( $wp_tests_dir . '/includes/speed-trap-listener.php' );
+		}
 	}
 
 	//
