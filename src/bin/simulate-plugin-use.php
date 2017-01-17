@@ -39,6 +39,15 @@ $GLOBALS['wp_test_factory'] = new WP_UnitTest_Factory;
  */
 require $simulation_file;
 
+/**
+ * Load the WordPress plugin functions.
+ * 
+ * These are usually only loaded in the admin, so we need to load them manually here.
+ * 
+ * @since 0.2.3
+ */
+require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 // Deactivate the plugin.
 deactivate_plugins( $plugin_file, false, $network_wide );
 
