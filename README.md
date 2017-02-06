@@ -16,8 +16,18 @@ vendor/bin/wpppb-init
 
 Answer the prompts, and you are ready to go!
 
-(Note that the default bootstrap utilizes Composer's PHP autoloader, which requires
-PHP 5.3. See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wpppb/wiki/PHP-5.2).)
+Your tests will be placed in the `tests` directory that will be created in the root of your project (i.e., alongside the `vendor` directory added by Composer). Your plugin's source (the part that would be zipped up and installed on a WordPress site) is expected to be in a `src` directory alonside these two, and not in the root of your project itself. Example file structure would look like this:
+
+```
+- src/
+  - my-plugin.php
+  - includes/
+  - etc.
+- tests/
+- vendor/
+```
+
+With a few modifications, you could probably use WPPPB with a different directory structure, but this is what it expects by default.
 
 ## Usage
 
@@ -28,6 +38,9 @@ phpunit
 ```
 
 You can also do other cool things like [test your plugin's uninstall routine](https://github.com/JDGrimes/wpppb/wiki/Testing-Uninstallation).
+
+(Note that the default bootstrap utilizes Composer's PHP autoloader, which requires
+PHP 5.3. See here for [instructions on usage with PHP 5.2](https://github.com/JDGrimes/wpppb/wiki/PHP-5.2).)
 
 ## Purpose
 
