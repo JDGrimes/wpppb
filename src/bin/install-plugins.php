@@ -56,7 +56,19 @@ foreach ( $custom_files['before'] as $file => $data ) {
 
 // Activate the plugins.
 foreach ( $plugins_info as $plugin => $info ) {
-	activate_plugin( $plugin, '', $info['network_wide'] );
+	
+	$result = activate_plugin( $plugin, '', $info['network_wide'] );
+	
+	if ( is_wp_error( $result ) ) {
+		
+		echo "Error: Plugin activation failed for {$plugin}:" . PHP_EOL;
+		
+		foreach ( $result->get_error_messages() as $message ) {
+			echo "- {$message}" . PHP_EOL;
+		}
+		
+		exit( 1 );
+	}
 }
 
 // Load files to include after the plugins are installed.
