@@ -81,12 +81,7 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 	public function setUp() {
 
 		// Create another site on multisite.
-		if ( is_multisite() ) {
-
-			// $this->factory isn't available until after setup.
-			$factory = new WP_UnitTest_Factory;
-			$this->_blog_id = $factory->blog->create();
-		}
+		$this->create_extra_site();
 
 		$loader = WPPPB_Loader::instance();
 		$loader->install_plugins();
@@ -120,6 +115,31 @@ abstract class WPPPB_TestCase_Uninstall extends WP_UnitTestCase {
 	public function tearDown() {
 
 		parent::tearDown();
+
+		$this->delete_extra_site();
+	}
+
+	/**
+	 * Create an extra site on multisite.
+	 *
+	 * @since 0.3.0
+	 */
+	protected function create_extra_site() {
+
+		if ( is_multisite() ) {
+
+			// $this->factory isn't available until after setup.
+			$factory        = new WP_UnitTest_Factory;
+			$this->_blog_id = $factory->blog->create();
+		}
+	}
+
+	/**
+	 * Delete the extra site created on multisite.
+	 *
+	 * @since 0.3.0
+	 */
+	public function delete_extra_site() {
 
 		if ( is_multisite() ) {
 			wpmu_delete_blog( $this->_blog_id, true );
