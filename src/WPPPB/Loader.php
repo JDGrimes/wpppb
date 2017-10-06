@@ -148,7 +148,7 @@ class WPPPB_Loader {
 		);
 
 		if ( 0 !== $exit_code ) {
-			echo( 'Remote plugin installation failed with exit code ' . $exit_code );
+			echo( 'Remote plugin installation failed with exit code ' . $exit_code . PHP_EOL );
 			exit( 1 );
 		}
 
@@ -206,7 +206,7 @@ class WPPPB_Loader {
 		$config_file_path .= '/wp-tests-config.php';
 
 		if ( ! is_readable( $config_file_path ) ) {
-			echo( 'Error: Unable to locate the wp-tests-config.php file.' );
+			echo( 'Error: Unable to locate the wp-tests-config.php file.' . PHP_EOL );
 			exit( 1 );
 		}
 
