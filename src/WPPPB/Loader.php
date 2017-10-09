@@ -137,7 +137,7 @@ class WPPPB_Loader {
 	 */
 	public function install_plugins() {
 
-		system(
+		$result = system(
 			WP_PHP_BINARY
 			. ' ' . escapeshellarg( dirname( dirname( __FILE__ ) ) . '/bin/install-plugins.php' )
 			. ' ' . escapeshellarg( json_encode( $this->plugins ) )
@@ -149,6 +149,9 @@ class WPPPB_Loader {
 
 		if ( 0 !== $exit_code ) {
 			echo( 'Remote plugin installation failed with exit code ' . $exit_code . PHP_EOL );
+			exit( 1 );
+		} elseif ( ! empty( $result ) ) {
+			echo( PHP_EOL . 'Remote plugin installation produced unexpected output.' . PHP_EOL );
 			exit( 1 );
 		}
 
