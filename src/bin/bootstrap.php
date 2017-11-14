@@ -10,6 +10,9 @@
  * @since 0.1.0
  */
 
+// Exit the script for all warnings and notices.
+ini_set( 'xdebug.halt_level', E_WARNING | E_NOTICE | E_USER_WARNING | E_USER_NOTICE );
+
 /**
  * The WordPress config file.
  *
