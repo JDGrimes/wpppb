@@ -75,6 +75,9 @@ class WPPPB_Loader {
 	 * @since 0.1.0
 	 */
 	protected function __construct() {
+
+		$this->phpunit_compat();
+
 		if ( $this->should_install_plugins() ) {
 			$this->hook_up_installer();
 		}
@@ -214,6 +217,23 @@ class WPPPB_Loader {
 		}
 
 		return $config_file_path;
+	}
+
+	/**
+	 * Ensures compatibility with the current PHPUnit version.
+	 *
+	 * @since 0.3.2
+	 */
+	public function phpunit_compat() {
+
+		if ( class_exists( 'PHPUnit\Runner\Version' ) ) {
+			/**
+			 * Compatibility with PHPUnit 6+.
+			 *
+			 * @since 0.3.2
+			 */
+			require_once $this->get_wp_tests_dir() . '/includes/phpunit6-compat.php';
+		}
 	}
 
 	/**
