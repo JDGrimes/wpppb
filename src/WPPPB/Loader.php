@@ -235,13 +235,10 @@ class WPPPB_Loader {
 			 */
 			require_once $this->get_wp_tests_dir() . '/includes/phpunit6-compat.php';
 
-			if ( version_compare( PHPUnit\Runner\Version::id(), '6.0', '>=' ) ) {
-
-				class_alias(
-					'PHPUnit\Framework\Constraint\Constraint'
-					, 'PHPUnit_Framework_Constraint'
-				);
-			}
+			class_alias(
+				'PHPUnit\Framework\Constraint\Constraint'
+				, 'PHPUnit_Framework_Constraint'
+			);
 		}
 	}
 
