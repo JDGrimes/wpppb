@@ -227,12 +227,21 @@ class WPPPB_Loader {
 	public function phpunit_compat() {
 
 		if ( class_exists( 'PHPUnit\Runner\Version' ) ) {
+
 			/**
 			 * Compatibility with PHPUnit 6+.
 			 *
 			 * @since 0.3.2
 			 */
 			require_once $this->get_wp_tests_dir() . '/includes/phpunit6-compat.php';
+
+			if ( version_compare( PHPUnit\Runner\Version::id(), '6.0', '>=' ) ) {
+
+				class_alias(
+					'PHPUnit\Framework\Constraint\Constraint'
+					, 'PHPUnit_Framework_Constraint'
+				);
+			}
 		}
 	}
 
