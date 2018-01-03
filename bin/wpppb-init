@@ -40,12 +40,11 @@ fi
 if [[ ! -e tests/phpunit/includes/bootstrap.php ]]; then
 
 	echo Copying tests/phpunit/includes/bootstrap.php...
-	cp "${scaffold_path}"/bootstrap.php tests/phpunit/includes/bootstrap.php
-
 	echo "Please enter the basename slug of your plugin (ex. my-plugin/my-plugin.php):"
 	read plugin_name
 
-	sed -i '' "s|my-plugin/my-plugin.php|$plugin_name|" tests/phpunit/includes/bootstrap.php
+	sed -e "s|my-plugin/my-plugin.php|$plugin_name|" "${scaffold_path}"/bootstrap.php \
+		> tests/phpunit/includes/bootstrap.php
 
 else
 	echo Not copying tests/phpunit/includes/bootstrap.php, already exists...
@@ -54,12 +53,11 @@ fi
 if [[ ! -e tests/phpunit/test-uninstall.php ]]; then
 
 	echo Copying tests/phpunit/test-uninstall.php...
-	cp "${scaffold_path}"/test-uninstall.php tests/phpunit/test-uninstall.php
-
 	echo "Please enter the prefix that your plugin uses in the database (ex. my_plugin):"
 	read prefix
 
-	sed -i '' "s/myplugin/$prefix/" tests/phpunit/test-uninstall.php
+	sed -e "s/myplugin/$prefix/" "${scaffold_path}"/test-uninstall.php \
+		> tests/phpunit/test-uninstall.php
 
 else
 	echo Not copying tests/phpunit/test-uninstall.php, already exists...
