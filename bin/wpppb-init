@@ -70,7 +70,7 @@ if [[ -z $WP_TESTS_DIR ]]; then
 	while true; do
 
 		if [[ -z $wp_tests_dir ]]; then
-			echo "Please enter the full path to the WordPress tests directory (ex. /path/to/wordpress/tests/phpunit/):"
+			echo "Please enter the full path to the WordPress core tests directory (ex. /path/to/wordpress/tests/phpunit/):"
 		fi
 
 		read wp_tests_dir
