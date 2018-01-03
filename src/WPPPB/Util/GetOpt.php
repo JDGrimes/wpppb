@@ -49,7 +49,7 @@ class WPPPB_Util_GetOpt extends PHPUnit_Util_Getopt {
 	 * @param array $argv The commandline arguments.
 	 */
 	public function __construct( $argv ) {
-		
+
 		if (
 			! file_exists( 'phpunit.uninstall.xml' )
 			&& ! file_exists( 'phpunit.uninstall.xml.dist' )
@@ -61,7 +61,10 @@ class WPPPB_Util_GetOpt extends PHPUnit_Util_Getopt {
 
 		$options = array();
 
-		while ( list( $i, $arg ) = each( $argv ) ) {
+		while ( current( $argv ) ) {
+
+			$arg = current( $argv );
+			next( $argv );
 
 			try {
 
