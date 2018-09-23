@@ -10,7 +10,7 @@ composer require --dev jdgrimes/wpppb
 
 ## Set Up
 
-First, you will need a local checkout of the WordPress development repo, including the `tests` directory. The recommended way to get this, particularly if you intend to contribute to WordPress core, is with [VVV](https://make.wordpress.org/core/handbook/tutorials/installing-a-local-server/installing-vvv/).
+First, you will need a local checkout of the WordPress development repo, including the `tests` directory. The recommended way to get this, particularly if you intend to contribute to WordPress core, is with [VVV](https://make.wordpress.org/core/handbook/tutorials/installing-a-local-server/installing-vvv/). WPPPB builds on the testing tools already included with WordPress core, so it won't work without them.
 
 Once you have a local copy of WordPress's `tests` directory, you can run the set-up script for WPPPB:
 
