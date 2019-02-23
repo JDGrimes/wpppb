@@ -75,9 +75,6 @@ class WPPPB_Loader {
 	 * @since 0.1.0
 	 */
 	protected function __construct() {
-
-		$this->phpunit_compat();
-
 		if ( $this->should_install_plugins() ) {
 			$this->hook_up_installer();
 		}
