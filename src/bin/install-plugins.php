@@ -63,8 +63,12 @@ foreach ( $plugins_info as $plugin => $info ) {
 		
 		echo "Error: Plugin activation failed for {$plugin}:" . PHP_EOL;
 		
-		foreach ( $result->get_error_messages() as $message ) {
-			echo "- {$message}" . PHP_EOL;
+		foreach ($result->get_error_codes() as $code) {
+			echo "- " . $result->get_error_message( $code ) . PHP_EOL;
+			$data = $result->get_error_data( $code );
+			if ( ! empty( $data ) && is_string( $data ) ) {
+				echo "Data: " . $data;
+			}
 		}
 		
 		exit( 1 );

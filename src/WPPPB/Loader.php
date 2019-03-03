@@ -228,12 +228,20 @@ class WPPPB_Loader {
 
 		if ( class_exists( 'PHPUnit\Runner\Version' ) ) {
 
-			/**
-			 * Compatibility with PHPUnit 6+.
-			 *
-			 * @since 0.3.2
-			 */
-			require_once $this->get_wp_tests_dir() . '/includes/phpunit6-compat.php';
+			if ( file_exists( $this->get_wp_tests_dir() . '/includes/phpunit6-compat.php' ) ) {
+				/**
+				 * Compatibility with PHPUnit 6+.
+				 *
+				 * @since 0.3.2
+				 */
+				require_once $this->get_wp_tests_dir() . '/includes/phpunit6-compat.php';
+			}
+			if ( file_exists( $this->get_wp_tests_dir() . '/includes/phpunit6/compat.php' ) ) {
+				/**
+				 * Compatibility with PHPUnit 6+ for WP 5.1.
+				 */
+				require_once $this->get_wp_tests_dir() . '/includes/phpunit6/compat.php';
+			}
 
 			class_alias(
 				'PHPUnit\Framework\Constraint\Constraint'
